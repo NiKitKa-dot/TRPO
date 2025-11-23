@@ -1,85 +1,60 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using DataTier;
+﻿using System;
+using System.Collections.Generic;
 
-namespace LogicTier
+namespace DataTier
 {
-    public class ТоварнаяПозиция
+    public class Товар
     {
-        private Товар _товар;
-
-        public ТоварнаяПозиция(Товар p) { _товар = p; }
-
-        public string КодТовара
-        {
-            get { return _товар.Код; }
-            set { _товар.Код = value; }
-        }
-
-        public string НаименованиеТовара
-        {
-            get { return _товар.Наименование; }
-            set { _товар.Наименование = value; }
-        }
-
-        public float ЦенаТовара
-        {
-            get { return _товар.Цена; }
-            set { _товар.Цена = value; }
-        }
-
-        public int КоличествоТовара
-        {
-            get { return _товар.Количество; }
-            set { _товар.Количество = value; }
-        }
-
-        public string ОписаниеТовара
-        {
-            get { return _товар.Описание; }
-            set { _товар.Описание = value; }
-        }
-
-        public float СуммарнаяСтоимостьПозиции
-        {
-            get { return _товар.Цена * _товар.Количество; }
-        }
-
-        public string ПредставлениеТовара
-        {
-            get { return _товар.Код + " : " + _товар.Наименование + " (" + _товар.Цена.ToString("C") + ")"; }
-        }
+        public string Код { get; set; }
+        public string Наименование { get; set; }
+        public float Цена { get; set; }
+        public int Количество { get; set; }
+        public string Описание { get; set; }
     }
 
-    public class Магазин
+    public class ВсеТовары
     {
-        private List<ТоварнаяПозиция> _товары = new List<ТоварнаяПозиция>();
-
-        public Магазин()
+        public static List<Товар> ПолучитьВсеТовары()
         {
-            List<Товар> tmp = ВсеТовары.ПолучитьВсеТовары();
-            foreach (var t in tmp)
-                _товары.Add(new ТоварнаяПозиция(t));
+            List<Товар> list = new List<Товар>();
+            list.Add(new Товар()
+            {
+                Код = "001",
+                Наименование = "ОС Windows 8",
+                Количество = 10,
+                Цена = 40.99f,
+                Описание = "Современная операционная система. Версия 8"
+            });
+            list.Add(new Товар()
+            {
+                Код = "002",
+                Наименование = "3D Max", 
+                Количество = 2,
+                Цена = 500.99f,
+                Описание = "Система визуализации и рендеринга от Autodesk Corp."
+            });
+            list.Add(new Товар()
+            {
+                Код = "003",
+                Наименование = "Total Commander 1.00",
+                Количество = 100,
+                Цена = 0.5f,
+                Описание = "__"
+            });
+            list.Add(new Товар()
+            {
+                Код = "004-001",
+                Наименование = "MS SQL Server",
+                Количество = 5,
+                Цена = 150.00f,
+                Описание = "СУБД от Microsoft Corp." 
+            });
+            return list;
         }
 
-        public List<ТоварнаяПозиция> СписокТоваров
+        public static void СохранитьВсеТовары(List<Товар> товары)
         {
-            get { return _товары; }
-        }
-
-        public string НаименованиеМагазина
-        {
-            get { return "Наш магазин"; }
-        }
-
-        public float СуммарнаяСтоимость
-        {
-            get { return _товары.Sum(p => p.СуммарнаяСтоимостьПозиции); }
-        }
-
-        public float СуммарноеКоличество
-        {
-            get { return _товары.Sum(p => p.КоличествоТовара); }
+            
         }
     }
 }
